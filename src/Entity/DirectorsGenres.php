@@ -24,9 +24,9 @@ class DirectorsGenres
     /**
      * @var float|null
      *
-     * @ORM\Column(name="prob", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="prob", type="float", precision=10, scale=0, nullable=true)
      */
-    private $prob = NULL;
+    private $prob;
 
     /**
      * @var \Directors

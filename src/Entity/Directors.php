@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Directors
  *
- * @ORM\Table(name="directors", indexes={@ORM\Index(name="directors_first_name", columns={"first_name"}), @ORM\Index(name="directors_last_name", columns={"last_name"})})
+ * @ORM\Table(name="directors", indexes={@ORM\Index(name="directors_last_name", columns={"last_name"}), @ORM\Index(name="directors_first_name", columns={"first_name"})})
  * @ORM\Entity
  */
 class Directors
@@ -26,16 +26,16 @@ class Directors
     /**
      * @var string|null
      *
-     * @ORM\Column(name="first_name", type="string", length=100, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="first_name", type="string", length=100, nullable=true)
      */
-    private $firstName = 'NULL';
+    private $firstName;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="last_name", type="string", length=100, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="last_name", type="string", length=100, nullable=true)
      */
-    private $lastName = 'NULL';
+    private $lastName;
 
     /**
      * @var \Doctrine\Common\Collections\Collection

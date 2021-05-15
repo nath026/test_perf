@@ -26,23 +26,23 @@ class Movies
     /**
      * @var string|null
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
      */
-    private $name = 'NULL';
+    private $name;
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="year", type="integer", nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="year", type="integer", nullable=true)
      */
-    private $year = NULL;
+    private $year;
 
     /**
      * @var float|null
      *
-     * @ORM\Column(name="rank", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="rank", type="float", precision=10, scale=0, nullable=true)
      */
-    private $rank = NULL;
+    private $rank;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
