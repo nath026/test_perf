@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DirectorsGenres{% endblock %}
+
+{% block body %}
+    <h1>Create new DirectorsGenres</h1>
+
+    {{ include('directors_genres/_form.html.twig') }}
+
+    <a href="{{ path('directors_genres_index') }}">back to list</a>
+{% endblock %}
