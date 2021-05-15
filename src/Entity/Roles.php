@@ -45,11 +45,6 @@ class Roles
      */
     private $movie;
 
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
     public function getActor(): ?Actors
     {
         return $this->actor;
