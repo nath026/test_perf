@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New MoviesGenres{% endblock %}
+
+{% block body %}
+    <h1>Create new MoviesGenres</h1>
+
+    {{ include('movies_genres/_form.html.twig') }}
+
+    <a href="{{ path('movies_genres_index') }}">back to list</a>
+{% endblock %}

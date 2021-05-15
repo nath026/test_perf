@@ -39,5 +39,20 @@ class Roles
      */
     private $role;
 
+    public function getActorId(): ?int
+    {
+        return $this->actorId;
+    }
+
+    public function getMovieId(): ?int
+    {
+        return $this->movieId;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
 
 }

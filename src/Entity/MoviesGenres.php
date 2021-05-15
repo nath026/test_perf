@@ -33,5 +33,22 @@ class MoviesGenres
      */
     private $movie;
 
+    public function getGenre(): ?string
+    {
+        return $this->genre;
+    }
+
+    public function getMovie(): ?Movies
+    {
+        return $this->movie;
+    }
+
+    public function setMovie(?Movies $movie): self
+    {
+        $this->movie = $movie;
+
+        return $this;
+    }
+
 
 }

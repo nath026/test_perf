@@ -40,5 +40,34 @@ class DirectorsGenres
      */
     private $director;
 
+    public function getGenre(): ?string
+    {
+        return $this->genre;
+    }
+
+    public function getProb(): ?float
+    {
+        return $this->prob;
+    }
+
+    public function setProb(?float $prob): self
+    {
+        $this->prob = $prob;
+
+        return $this;
+    }
+
+    public function getDirector(): ?Directors
+    {
+        return $this->director;
+    }
+
+    public function setDirector(?Directors $director): self
+    {
+        $this->director = $director;
+
+        return $this;
+    }
+
 
 }

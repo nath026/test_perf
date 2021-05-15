@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit MoviesGenres{% endblock %}
+
+{% block body %}
+    <h1>Edit MoviesGenres</h1>
+
+    {{ include('movies_genres/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('movies_genres_index') }}">back to list</a>
+
+    {{ include('movies_genres/_delete_form.html.twig') }}
+{% endblock %}
