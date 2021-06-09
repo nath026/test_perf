@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DirectorsGenres index{% endblock %}
+
+{% block body %}
+    <h1>DirectorsGenres index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Genre</th>
+                <th>Prob</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for directors_genre in directors_genres %}
+            <tr>
+                <td>{{ directors_genre.genre }}</td>
+                <td>{{ directors_genre.prob }}</td>
+                <td>
+                    <a href="{{ path('directors_genres_show', {'genre': directors_genre.genre}) }}">show</a>
+                    <a href="{{ path('directors_genres_edit', {'genre': directors_genre.genre}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('directors_genres_new') }}">Create new</a>
+{% endblock %}

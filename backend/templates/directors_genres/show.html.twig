@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DirectorsGenres{% endblock %}
+
+{% block body %}
+    <h1>DirectorsGenres</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Genre</th>
+                <td>{{ directors_genre.genre }}</td>
+            </tr>
+            <tr>
+                <th>Prob</th>
+                <td>{{ directors_genre.prob }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('directors_genres_index') }}">back to list</a>
+
+    <a href="{{ path('directors_genres_edit', {'genre': directors_genre.genre}) }}">edit</a>
+
+    {{ include('directors_genres/_delete_form.html.twig') }}
+{% endblock %}

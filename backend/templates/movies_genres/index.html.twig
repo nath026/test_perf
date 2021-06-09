@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MoviesGenres index{% endblock %}
+
+{% block body %}
+    <h1>MoviesGenres index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Genre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for movies_genre in movies_genres %}
+            <tr>
+                <td>{{ movies_genre.genre }}</td>
+                <td>
+                    <a href="{{ path('movies_genres_show', {'genre': movies_genre.genre}) }}">show</a>
+                    <a href="{{ path('movies_genres_edit', {'genre': movies_genre.genre}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('movies_genres_new') }}">Create new</a>
+{% endblock %}
