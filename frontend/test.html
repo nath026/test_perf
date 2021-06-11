@@ -1,0 +1,16 @@
+<div id="container">
+</div>
+<script>
+
+
+
+fetch("http://127.0.0.1:8000/api/movies")
+.then((resp) => resp.json())
+.then(function(data) {
+  console.log(data.name);
+  document.getElementById('container').innerHTML = data.name;
+})
+.catch(function(error) {
+  console.log(error);
+});
+</script>
