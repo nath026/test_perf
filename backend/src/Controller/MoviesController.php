@@ -24,7 +24,6 @@ class MoviesController extends AbstractController
             ->findAll();
 
         return $this->render('movies/index.html.twig', [
-            'movies' => $movies,
         ]);
     }
 

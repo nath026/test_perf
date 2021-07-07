@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 use App\Entity\Movies;
+use App\Entity\Actors;
+
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +26,9 @@ class TestApiController extends AbstractFOSRestController
      */
     public function moviesAction()
     {
-        $users = $this->getDoctrine()->getRepository(Movies::class)->findOneBy(['id' => 1]);
+        set_time_limit(0);
+        $users = $this->getDoctrine()->getRepository(Movies::class)->findAll();
+
         return $this->handleView($this->view($users));
     }
 
