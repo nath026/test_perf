@@ -1,14 +1,21 @@
+<h1>Liste des films</h1>
 <div id="container">
 </div>
 <script>
 
 
+let test = document.getElementById('container');
 
-fetch("http://127.0.0.1:8000/api/movies")
+fetch("http://localhost:8000/api/movies")
 .then((resp) => resp.json())
 .then(function(data) {
-  console.log(data.name);
-  document.getElementById('container').innerHTML = data.name;
+  console.log(data.map(x => x));
+  data.map(x => {let movies = document.createElement('div')
+  movies.innerHTML == x.name;
+  test.appendChild(movies);
+})
+
+  // document.getElementById('container').innerHTML = data.map(x => x);
 })
 .catch(function(error) {
   console.log(error);

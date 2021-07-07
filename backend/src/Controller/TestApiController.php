@@ -24,7 +24,7 @@ class TestApiController extends AbstractFOSRestController
      */
     public function moviesAction()
     {
-        $users = $this->getDoctrine()->getRepository(Movies::class)->findOneBy(['id' => 1]);
+        $users = $this->getDoctrine()->getRepository(Movies::class)->findBy(array(), array('id' => 'DESC'), 10);
         return $this->handleView($this->view($users));
     }
 
