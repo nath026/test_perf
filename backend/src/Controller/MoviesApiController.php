@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/api", name="api_")
  */
-class TestApiController extends AbstractFOSRestController
+class MoviesApiController extends AbstractFOSRestController
 {
 
     /**
@@ -24,8 +24,20 @@ class TestApiController extends AbstractFOSRestController
      */
     public function moviesAction()
     {
-        $users = $this->getDoctrine()->getRepository(Movies::class)->findBy(array(), array('id' => 'DESC'), 10);
-        return $this->handleView($this->view($users));
+        $data = $this->getDoctrine()->getRepository(Movies::class)->findAll();
+        return $this->handleView($this->view($data));
+    }
+
+    /**
+     *
+     * @Rest\Get("/movie/{id}")
+     *
+     * @return Response
+     */
+    public function movieByIdAction($id)
+    {
+        $data = $this->getDoctrine()->getRepository(Movies::class)->findBy(['id' => $id]);
+        return $this->handleView($this->view($data));
     }
 
 }
