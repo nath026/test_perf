@@ -48,7 +48,7 @@ class ActorsApiController extends AbstractFOSRestController
 
     /**
      *
-     * @Rest\Delete("/director/{id}")
+     * @Rest\Delete("/actor/{id}")
      *
      * @return Response
      */
@@ -56,12 +56,16 @@ class ActorsApiController extends AbstractFOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $data = $em->getRepository(Actors::class)->findOneBy(['id'=> $id]);
-        if ($data != null){
-            $em->remove($data);
-            $em->flush();
-            return new JsonResponse("Actor was deleted");
-        }else{
-            return new JsonResponse("Actor doesn't exist");
+        try{
+            if ($data != null){
+                $em->remove($data);
+                $em->flush();
+                return $this->handleView($this->view(['status' => 'Ok'], Response::HTTP_OK));
+            }else{
+                return $this->handleView($this->view(['status' => 'No Content'], Response::HTTP_NO_CONTENT));
+            }
+        } catch( Exception $e){
+            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_NOT_ACCEPTABLE));
         }
     }
 
