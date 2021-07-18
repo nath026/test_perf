@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Entity\Movies;
+use App\Entity\Directors;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,23 +86,28 @@ class MoviesApiController extends AbstractFOSRestController
      *
      * @return Response
      */
-    public function createMovie($id)
+    public function createMovie(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository(Movies::class)->findOneBy(['id'=> $id]);
-        try{
-            if ($data != null){
-                $em->remove($data);
-                $em->flush();
-                return $this->handleView($this->view(['status' => 'Ok'], Response::HTTP_OK));
-            }else{
-                return $this->handleView($this->view(['status' => 'No Content'], Response::HTTP_NO_CONTENT));
-            }
-        } catch( Exception $e){
-            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_NOT_ACCEPTABLE));
+        // var_dump($request);
+        $name = $request->query->get('name');
+        $year = $request->query->get('year');
+        $rank = $request->query->get('rank');
+        $directorId = $request->query->get('directorId');
+        // $data = json_decode($request->getContent(), true);
+        $director = $em->getRepository(Directors::class)->findOneBy(['id'=> $directorId]);
+        $movie = new Movies();
+        $movie->setName($name);
+        $movie->setYear($year);
+        $movie->setRank($rank);
+        $movie->addDirector($director);
+        try {
+            $em->persist($movie);
+            $em->flush();
+            return $this->handleView($this->view(['status' => 'Created'], Response::HTTP_CREATED));
+        } catch (Exception $e) {
+            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_ACCEPTED));
         }
-        
-        //return $this->redirectToRoute('back_book_index');
     }
     
 }
