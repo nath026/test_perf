@@ -78,9 +78,12 @@ class ActorsApiController extends AbstractFOSRestController
      */
     public function createAction(Request $request)
     {
-        $data = json_decode($request->getContent(), true);
-        $actors = new Actors($data['firstName'], $data["lastName"], $data["gender"]);
+        $actors = new Actors();
+        $firstName = $request->query->get('firstName');
+        $lastName = $request->query->get('lastName');
 
+        $actors->setFirstName($firstName);
+        $actors->setLastName($lastName);
         try {
             sleep(rand(0, 10));
             $em = $this->getDoctrine()->getManager();

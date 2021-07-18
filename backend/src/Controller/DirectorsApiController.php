@@ -51,11 +51,13 @@ class DirectorsApiController extends AbstractFOSRestController
     public function createAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $data = json_decode($request->getContent(), true);
-        $movie = $em->getRepository(Movies::class)->findOneBy(['id' => $data["movie"]]);
-        $director = new Directors($data['firstName'], $data["lastName"], $movie);
-        $director->setFirstName("test");
-        $director->setLastName("test");
+
+        $firstName = $request->query->get('firstName');
+        $lastName = $request->query->get('lastName');
+
+        $director = new Directors();
+        $director->setFirstName($firstName);
+        $director->setLastName($lastName);
          try {
              sleep(rand(0,10));
              $em->persist($director);
