@@ -25,7 +25,7 @@ class MoviesApiController extends AbstractFOSRestController
      */
     public function moviesAction()
     {
-        $data = $this->getDoctrine()->getRepository(Movies::class)->findAll();
+        $data = $this->getDoctrine()->getRepository(Movies::class)->findBy(array(), array('id' => 'ASC'), 2000);
         return $this->handleView($this->view($data));
     }
 
