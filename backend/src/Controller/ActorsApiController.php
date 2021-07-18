@@ -1,7 +1,11 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Actors;
 use App\Entity\Movies;
+use App\Form\ActorsType;
+use App\Repository\ActorsRepository;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,5 +66,26 @@ class ActorsApiController extends AbstractFOSRestController
     }
 
 
-}
+    /**
+     * 
+     * @Rest\Post("/actors")
+     * 
+     * @return Response
+     */
+    public function createAction(Request $request)
+    {
+        $actors = new Actors();
 
+        try {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($actors);
+            $em->flush();
+            return $this->handleView($this->view(['status' => 'ok', 'id' => "", $actors->getId()], Response::HTTP_CREATED));
+        } catch ( Exception $e) {
+            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_ACCEPTED));
+
+        }
+
+    }
+}
