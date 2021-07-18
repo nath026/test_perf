@@ -1,0 +1,21 @@
+#nav a{
+    color: black;
+    margin-left: 20px;
+    margin-left: 20px;
+}
+
+.active{
+    font-weight: bold;
+    text-decoration: none;
+    color: #183691!important;
+}
+
+#nav{
+    display: flex;
+    width: 90%;
+    margin: auto;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+
+}
