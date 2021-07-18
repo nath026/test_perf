@@ -42,5 +42,28 @@ class DirectorsApiController extends AbstractFOSRestController
         return $this->handleView($this->view($data));
     }
 
+    /**
+     *
+     * @Rest\Post("/director")
+     *
+     * @return Response
+     */
+    public function createAction(Request $request)
+    {
+        $director = new Directors();
+
+        try {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($director);
+            $em->flush();
+            return $this->handleView($this->view(['status' => 'ok', 'id' => "", $director->getId()], Response::HTTP_CREATED));
+        } catch ( Exception $e) {
+            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_ACCEPTED));
+
+        }
+
+    }
+
 }
 
