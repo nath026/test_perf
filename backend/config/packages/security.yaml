@@ -21,6 +21,8 @@ security:
             guard:
                 authenticators:
                     - App\Security\UserAuthenticator
+            json_login:
+                check_path: /loginAPI
             logout:
                 path: app_logout
                 # where to redirect after logout

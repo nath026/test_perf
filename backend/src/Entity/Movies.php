@@ -37,12 +37,12 @@ class Movies
      */
     private $year;
 
-    /**
-     * @var float|null
-     *
-     * @ORM\Column(name="rank", type="float", precision=10, scale=0, nullable=true)
-     */
-    private $rank;
+    // /**
+    //  * @var float|null
+    //  *
+    //  * @ORM\Column(name="rank", type="float", precision=10, scale=0, nullable=true)
+    //  */
+    // private $rank;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
