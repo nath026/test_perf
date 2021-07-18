@@ -19,7 +19,7 @@ class Actors
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id = '0';
+    private $id;
 
     /**
      * @var string|null

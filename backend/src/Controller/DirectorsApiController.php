@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Actors;
 use App\Entity\Directors;
 use App\Entity\Movies;
@@ -50,20 +52,16 @@ class DirectorsApiController extends AbstractFOSRestController
      */
     public function createAction(Request $request)
     {
-        $director = new Directors();
+        $data = json_decode($request->getContent(), true);
+        $director = new Directors($data['firstName'], $data["lastName"], $data["movie"]);
 
         try {
             $em = $this->getDoctrine()->getManager();
-
             $em->persist($director);
             $em->flush();
             return $this->handleView($this->view(['status' => 'ok', 'id' => "", $director->getId()], Response::HTTP_CREATED));
-        } catch ( Exception $e) {
+        } catch (Exception $e) {
             return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_ACCEPTED));
-
         }
-
     }
-
 }
-
