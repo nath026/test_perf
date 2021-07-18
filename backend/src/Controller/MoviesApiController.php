@@ -40,5 +40,15 @@ class MoviesApiController extends AbstractFOSRestController
         return $this->handleView($this->view($data));
     }
 
+    /**
+    * @Route("/api/test", name="testapi")
+    */
+    public function test()
+    {
+        return $this->json([
+                'message' => 'test!',
+        ]);
+    }
+
 }
 
