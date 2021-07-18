@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -40,5 +41,27 @@ class MoviesApiController extends AbstractFOSRestController
         return $this->handleView($this->view($data));
     }
 
+    /**
+     *
+     * @Rest\Delete("/movie/{id}")
+     *
+     * @return Response
+     */
+    public function deleteMovieByID($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository(Movies::class)->findOneBy(['id'=> $id]);
+        if ($data != null){
+            $em->remove($data);
+            $em->flush();
+            return new JsonResponse("Movie was deleted");
+        }else{
+            return new JsonResponse("Movie doesn't exist");
+        }
+        //return $this->redirectToRoute('back_book_index');
+    }
+
+
+    
 }
 
