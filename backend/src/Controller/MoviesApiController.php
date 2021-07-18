@@ -51,13 +51,18 @@ class MoviesApiController extends AbstractFOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $data = $em->getRepository(Movies::class)->findOneBy(['id'=> $id]);
-        if ($data != null){
-            $em->remove($data);
-            $em->flush();
-            return new JsonResponse("Movie was deleted");
-        }else{
-            return new JsonResponse("Movie doesn't exist");
+        try{
+            if ($data != null){
+                $em->remove($data);
+                $em->flush();
+                return $this->handleView($this->view(['status' => 'Ok'], Response::HTTP_OK));
+            }else{
+                return $this->handleView($this->view(['status' => 'No Content'], Response::HTTP_NO_CONTENT));
+            }
+        } catch( Exception $e){
+            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_NOT_ACCEPTABLE));
         }
+        
         //return $this->redirectToRoute('back_book_index');
     }
 
@@ -74,7 +79,30 @@ class MoviesApiController extends AbstractFOSRestController
         return $this->handleView($this->view($data));
     }
 
-
+    /**
+     *
+     * @Rest\Post("/movie")
+     *
+     * @return Response
+     */
+    public function createMovie($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository(Movies::class)->findOneBy(['id'=> $id]);
+        try{
+            if ($data != null){
+                $em->remove($data);
+                $em->flush();
+                return $this->handleView($this->view(['status' => 'Ok'], Response::HTTP_OK));
+            }else{
+                return $this->handleView($this->view(['status' => 'No Content'], Response::HTTP_NO_CONTENT));
+            }
+        } catch( Exception $e){
+            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_NOT_ACCEPTABLE));
+        }
+        
+        //return $this->redirectToRoute('back_book_index');
+    }
     
 }
 
