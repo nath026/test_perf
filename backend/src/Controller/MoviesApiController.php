@@ -61,6 +61,19 @@ class MoviesApiController extends AbstractFOSRestController
         //return $this->redirectToRoute('back_book_index');
     }
 
+    /**
+     *
+     * @Rest\Get("/slow/movie/{id}")
+     *
+     * @return Response
+     */
+    public function movieByIdAction_Slow($id)
+    {
+        sleep(20);
+        $data = $this->getDoctrine()->getRepository(Movies::class)->findBy(['id' => $id]);
+        return $this->handleView($this->view($data));
+    }
+
 
     
 }
