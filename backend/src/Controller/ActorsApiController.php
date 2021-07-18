@@ -74,18 +74,18 @@ class ActorsApiController extends AbstractFOSRestController
      */
     public function createAction(Request $request)
     {
-        $actors = new Actors();
+        $data = json_decode($request->getContent(), true);
+        $actors = new Actors($data['firstName'], $data["lastName"], $data["gender"]);
 
         try {
+            sleep(rand(0, 10));
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($actors);
             $em->flush();
             return $this->handleView($this->view(['status' => 'ok', 'id' => "", $actors->getId()], Response::HTTP_CREATED));
-        } catch ( Exception $e) {
+        } catch (Exception $e) {
             return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_ACCEPTED));
-
         }
-
     }
 }
