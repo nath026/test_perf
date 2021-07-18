@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Actors;
 use App\Entity\Directors;
 use App\Entity\Movies;
@@ -45,6 +47,26 @@ class DirectorsApiController extends AbstractFOSRestController
 
     /**
      *
+     * @Rest\Post("/director")
+     *
+     * @return Response
+     */
+    public function createAction(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        $director = new Directors($data['firstName'], $data["lastName"], $data["movie"]);
+
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($director);
+            $em->flush();
+            return $this->handleView($this->view(['status' => 'ok', 'id' => "", $director->getId()], Response::HTTP_CREATED));
+        } catch (Exception $e) {
+            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_ACCEPTED));
+        }
+    }
+
+    /**
      * @Rest\Delete("/director/{id}")
      *
      * @return Response
@@ -52,8 +74,8 @@ class DirectorsApiController extends AbstractFOSRestController
     public function deleteActorByID($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $data = $em->getRepository(Directors::class)->findOneBy(['id'=> $id]);
-        if ($data != null){
+        $data = $em->getRepository(Directors::class)->findOneBy(['id' => $id]);
+        if ($data != null) {
             $em->remove($data);
             $em->flush();
             return new JsonResponse("Director was deleted");
@@ -62,4 +84,3 @@ class DirectorsApiController extends AbstractFOSRestController
         }
     }
 }
-
