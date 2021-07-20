@@ -1,0 +1,36 @@
+<h1>Se connecter</h1>
+<div id="container">
+  <form>
+    <label for="">Email</label>
+    <input type="text" name="email" id="email">
+    <label for="">Mot de passe</label>
+    <input type="password" name="password" id="password">
+    <input type="submit" value="Go" onclick="login()">
+    <p id="error"></p>
+  </form>
+</div>
+<script>
+
+function login() {
+  let formData = new FormData();
+  formData.append('email', document.getElementById('email').value);
+  formData.append('password', document.getElementById('password').value);
+
+  event.preventDefault();
+  fetch("http://localhost:8000/auth/login",
+  {
+      body: formData,
+      method: "POST"
+  })
+  .then((resp) => resp.json())
+  .then((data) => localStorage.setItem("jwt", data.token))
+  .catch((error) => console.log(error));
+
+  if(localStorage.getItem('jwt') && localStorage.getItem('jwt') !== "undefined"){
+    location.href = "./test.html";
+  } else {
+    document.getElementById('error').innerText = "Mauvais identifiants";
+  }
+    
+}
+</script>
