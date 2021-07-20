@@ -30,7 +30,7 @@ class ActorsApiController extends AbstractFOSRestController
      */
     public function actorsAction()
     {
-        $data = $this->getDoctrine()->getRepository(Actors::class)->findBy(array(), array('id' => 'ASC'), 2000);
+        $data = $this->getDoctrine()->getRepository(Actors::class)->findBy(array(), array('id' => 'ASC'), 200);
         return $this->handleView($this->view($data));
     }
 
