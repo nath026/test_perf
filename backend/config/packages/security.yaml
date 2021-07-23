@@ -22,7 +22,7 @@ security:
                 path: logout
                 # where to redirect after logout
                 # target: app_any_route
-            pattern: ^/api
+            pattern:
             guard:
                 authenticators:
                     - App\Security\JwtAuthenticator
