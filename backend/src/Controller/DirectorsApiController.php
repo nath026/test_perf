@@ -39,7 +39,7 @@ class DirectorsApiController extends AbstractFOSRestController
      */
     public function directorByIdAction($id)
     {
-        $data = $this->getDoctrine()->getRepository(Directors::class)->findBy(['id' => $id]);
+        $data = $this->getDoctrine()->getRepository(Directors::class)->findOneBy(['id' => $id]);
         return $this->handleView($this->view($data));
     }
 
@@ -58,14 +58,14 @@ class DirectorsApiController extends AbstractFOSRestController
         $director = new Directors();
         $director->setFirstName($firstName);
         $director->setLastName($lastName);
-         try {
-             sleep(rand(0,10));
-             $em->persist($director);
-             $em->flush();
-             return $this->handleView($this->view(['status' => 'ok', 'id' => "", $director->getId()], Response::HTTP_CREATED));
-         } catch (Exception $e) {
-             return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_ACCEPTED));
-         }
+        try {
+            sleep(rand(0,10));
+            $em->persist($director);
+            $em->flush();
+            return $this->handleView($this->view(['status' => 'ok', 'id' => "", $director->getId()], Response::HTTP_CREATED));
+        } catch (Exception $e) {
+            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_ACCEPTED));
+        }
     }
     
     /**

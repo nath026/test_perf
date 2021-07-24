@@ -42,7 +42,7 @@ class ActorsApiController extends AbstractFOSRestController
      */
     public function actorByIdAction($id)
     {
-        $data = $this->getDoctrine()->getRepository(Actors::class)->findBy(['id' => $id]);
+        $data = $this->getDoctrine()->getRepository(Actors::class)->findOneBy(['id' => $id]);
         return $this->handleView($this->view($data));
     }
 
