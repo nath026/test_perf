@@ -27,7 +27,7 @@ class DirectorsApiController extends AbstractFOSRestController
      */
     public function directorsAction()
     {
-        $data = $this->getDoctrine()->getRepository(Directors::class)->findBy(array(), array('id' => 'ASC'), 2000);
+        $data = $this->getDoctrine()->getRepository(Directors::class)->findBy(array(), array('id' => 'ASC'), 200);
         return $this->handleView($this->view($data));
     }
 

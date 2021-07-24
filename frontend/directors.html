@@ -12,6 +12,13 @@
     <title>Document</title>
 </head>
 <body>
+<header>
+    <a href="index.html">Home</a>
+    <a href="movies.html">Movies</a>
+    <a href="actors.html">Actors</a>
+    <a href="directors.html">Directors</a>
+</header>
+<div class="table-container">
 <table id="data" class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -23,6 +30,7 @@
 
     </tbody>
 </table>
+</div>
 </body>
 
 <script>
@@ -38,7 +46,7 @@
                 }
             )
             $('#data').after('<div id="nav"></div>');
-            var rowsShown = 15;
+            var rowsShown = 12;
             var rowsTotal = $('#data tbody tr').length;
             var numPages = rowsTotal/rowsShown;
             for(i = 0;i < numPages;i++) {

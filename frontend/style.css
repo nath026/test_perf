@@ -16,6 +16,22 @@
     margin: auto;
     justify-content: space-around;
     flex-wrap: wrap;
+}
 
+.table-container{
+    width: 90%;
+    margin: auto;
+}
 
+header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    margin: auto;
+    height: 100px;
+}
+
+.btn{
+    margin-left: 6px;
 }
