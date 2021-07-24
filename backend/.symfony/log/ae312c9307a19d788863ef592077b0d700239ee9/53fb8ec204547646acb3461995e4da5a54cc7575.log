@@ -1,0 +1,3 @@
+[07-Jul-2021 12:04:57] ERROR: failed to open configuration file '.symfony/php/ae312c9307a19d788863ef592077b0d700239ee9/fpm-7.4.16.ini': No such file or directory (2)
+[07-Jul-2021 12:04:57] ERROR: failed to load configuration file '.symfony/php/ae312c9307a19d788863ef592077b0d700239ee9/fpm-7.4.16.ini'
+[07-Jul-2021 12:04:57] ERROR: FPM initialization failed

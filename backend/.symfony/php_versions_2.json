@@ -1,0 +1,24 @@
+[
+    {
+        "version": "7.4.12",
+        "path": "/opt/lampp",
+        "php_path": "/opt/lampp/bin/php",
+        "fpm_path": "",
+        "cgi_path": "/opt/lampp/bin/php-cgi-7.4.12",
+        "php_config_path": "/opt/lampp/bin/php-config-7.4.12",
+        "phpize_path": "/opt/lampp/bin/phpize-7.4.12",
+        "phpdbg_path": "/opt/lampp/bin/phpdbg",
+        "is_system": false
+    },
+    {
+        "version": "7.4.16",
+        "path": "/usr",
+        "php_path": "/usr/bin/php7.4",
+        "fpm_path": "/usr/sbin/php-fpm7.4",
+        "cgi_path": "",
+        "php_config_path": "/usr/bin/php-config7.4",
+        "phpize_path": "/usr/bin/phpize7.4",
+        "phpdbg_path": "",
+        "is_system": false
+    }
+]

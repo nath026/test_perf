@@ -1,7 +1,11 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Actors;
 use App\Entity\Movies;
+use App\Form\ActorsType;
+use App\Repository\ActorsRepository;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,6 +46,53 @@ class ActorsApiController extends AbstractFOSRestController
         return $this->handleView($this->view($data));
     }
 
+    /**
+     *
+     * @Rest\Delete("/actor/{id}")
+     *
+     * @return Response
+     */
+    public function deleteActorByID($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository(Actors::class)->findOneBy(['id'=> $id]);
+        try{
+            if ($data != null){
+                $em->remove($data);
+                $em->flush();
+                return $this->handleView($this->view(['status' => 'Ok'], Response::HTTP_OK));
+            }else{
+                return $this->handleView($this->view(['status' => 'No Content'], Response::HTTP_NO_CONTENT));
+            }
+        } catch( Exception $e){
+            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_NOT_ACCEPTABLE));
+        }
+    }
 
+
+    /**
+     * 
+     * @Rest\Post("/actors")
+     * 
+     * @return Response
+     */
+    public function createAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        // var_dump($request);
+        $firstName = $request->query->get('firstName');
+        $lastName = $request->query->get('lastName');
+        $gender = $request->query->get('gender');
+        $actors = new Actors();
+        $actors->setFirstName($firstName);
+        $actors->setLastName($lastName);
+        $actors->setGender($gender);
+        try {
+            $em->persist($actors);
+            $em->flush();
+            return $this->handleView($this->view(['status' => 'Created'], Response::HTTP_CREATED));
+        } catch (Exception $e) {
+            return $this->handleView($this->view(['error' => $e->getMessage()], Response::HTTP_ACCEPTED));
+        }
+    }
 }
-

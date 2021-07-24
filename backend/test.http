@@ -1,0 +1,10 @@
+GET HTTP/1.1 (http://localhost:8000/api/movie/3
+
+# POST https://127.0.0.1:8001/api/movie
+# Content-Type: application/json
+# {
+#   "name": "heeeeeere",
+#   "year": "1995",
+#   "rank": "007",
+#   "director": "2"
+# }
