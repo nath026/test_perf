@@ -50,7 +50,7 @@ class MoviesApiController extends AbstractFOSRestController
      */
     public function movieByIdAction($id)
     {
-        $data = $this->getDoctrine()->getRepository(Movies::class)->findBy(['id' => $id]);
+        $data = $this->getDoctrine()->getRepository(Movies::class)->findOneBy(['id' => $id]);
         return $this->handleView($this->view($data));
     }
 
@@ -87,9 +87,12 @@ class MoviesApiController extends AbstractFOSRestController
      */
     public function movieByIdAction_Slow()
     {
-        $data = $this->getDoctrine()->getRepository(Movies::class)->findAll();
-        $arr = [];
-        foreach($data as $line){
+        $data = $this->getDoctrine()->getRepository(Movies::class)->findBy(array(), array(), 200);
+        $arr = array();
+        foreach( $data as $line ){
+            for( $i = 0; $i <= 200; $i++ ){
+                array_push( $arr, $line );
+            }
             usleep(1000);
         }
         return $this->handleView($this->view($data));
