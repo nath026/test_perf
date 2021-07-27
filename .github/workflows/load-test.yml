@@ -29,7 +29,7 @@ jobs:
       - name: Run local k6 test
         uses: k6io/action@v0.1
         with:
-          filename: k6\actors\load.js
+          filename: /k6/actors/load.js
 
   # This workflow contains a single job called "build"
   build:
