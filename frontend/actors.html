@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<header>
+    <a href="index.html">Home</a>
+    <a href="movies.html">Movies</a>
+    <a href="actors.html">Actors</a>
+    <a href="directors.html">Directors</a>
+</header>
+<div class="table-container">
+<table id="data" class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="data-container">
+
+    </tbody>
+</table>
+
+<div class="modal fade" id="modal-info" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Actor info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label><b>First name :</b></label> <span class="info-line" id="first-name"></span><br>
+                <label><b>Last name :</b></label> <span class="info-line" id="last-name"></span><br>
+                <label><b>Gender :</b></label> <span class="info-line" id="gender"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+<script>
+    let container = document.getElementById('data-container');
+    fetch("http://localhost:8000/api/actors")
+        .then((resp) => resp.json())
+        .then(function(data) {
+            data.forEach(function(item){
+                    container.innerHTML += "<tr id='id-" + item.id + "'>" +
+                        "<td>"+ item.id +"</td>" +
+                        "<td>"+ item.first_name + " " + item.last_name +"</td>" +
+                        "<td><button type='button' data-bs-toggle='modal' data-bs-target='#modal-info' class='btn btn-primary' onclick='show(" + item.id + ")'>Show</button>" +
+                        "<button type='button' class='btn btn-danger' onclick='deleteActor(" + item.id + ")' >Delete</button></td>" +
+                        "</tr>";
+                }
+            )
+            initTable()
+
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+
+    function show(id){
+        fetch("http://localhost:8000/api/actor/"+id)
+            .then((resp) => resp.json())
+            .then(function(data) {
+                data.forEach(function(item){
+                        document.getElementById('first-name').innerHTML = item.first_name
+                        document.getElementById('last-name').innerHTML = item.last_name
+                        document.getElementById('gender').innerHTML = item.gender
+                    }
+                )
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
+    function deleteActor(id){
+        $.ajax({
+            url: 'http://localhost:8000/api/actor/'+id,
+            type: 'DELETE',
+            success: function(result) {
+                $("#id-"+id).hide()
+                alert('Actor deleted')
+            }
+        });
+    }
+
+    function initTable(){
+        $('#data').after('<div id="nav"></div>');
+        var rowsShown = 12;
+        var rowsTotal = $('#data tbody tr').length;
+        var numPages = rowsTotal/rowsShown;
+        for(i = 0;i < numPages;i++) {
+            var pageNum = i + 1;
+            $('#nav').append('<a href="#" rel="'+i+'">'+pageNum+'</a> ');
+        }
+        $('#data tbody tr').hide();
+        $('#data tbody tr').slice(0, rowsShown).show();
+        $('#nav a:first').addClass('active');
+        $('#nav a').bind('click', function(){
+
+            $('#nav a').removeClass('active');
+            $(this).addClass('active');
+            var currPage = $(this).attr('rel');
+            var startItem = currPage * rowsShown;
+            var endItem = startItem + rowsShown;
+            $('#data tbody tr').css('opacity','0.0').hide().slice(startItem, endItem).
+            css('display','table-row').animate({opacity:1}, 300);
+        });
+    }
+
+
+
+
+</script>
+
+</html>
